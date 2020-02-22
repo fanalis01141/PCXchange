@@ -24,7 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $products = Product::where("user_id", \Auth::user()->id)->get();
+        $products = Product::where("user_id", \Auth::user()->id)->where("prod_qty",">",0)->get();
         return view('home', compact('products'));
     }
 }

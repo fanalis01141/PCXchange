@@ -28,7 +28,10 @@
                                     <div class="card-body">
                                         <img id="blah" src="{{asset('180.png')}}" alt="product image" style="max-height:180px"/>
                                         <input type="file" onchange="readURL(this);" id="prod_image" name="prod_image"/>
-                                        <small>PNG / JPG / JPEG / GIF formats only.</small>
+                                        <div class="row ml-2">
+                                            
+                                            <small>png / jpg / jpeg / gif formats only.</small>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

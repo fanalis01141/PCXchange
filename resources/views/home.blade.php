@@ -13,18 +13,23 @@
                     <a href="{{route('products.create')}}" class="float-right btn btn-success btn-sm">Sell new items</a>
                 </div>
                 <div class="card-body">
-                    <div class="row">
+                    <div class="scrollmenu row ">
                         @foreach ($products as $p)
 
-                            <div class="card text-left mr-2">
-                                <img src="/storage/product_images/{{$p->prod_image}}" alt="" style="width:210px; height:200px;">
-                                <div class="card-body">
-                                    <ul><h4 class="card-title">{{$p->prod_name}}</h4></ul>
-                                    <p class="card-text">PHP {{$p->prod_amt}}.00</p>
-                                    <small>{{$p->prod_qty}} left</small>
+                            <div class="card ml-3 mr-1 mt-2" style="width: 12rem;">
+                                <div class="text-center">
+                                    <img class="card-img-top" src="/storage/product_images/{{$p->prod_image}}" alt="Card image cap" style="width:130px; height:120px;">
                                 </div>
-                            </div>
-                            
+                                <div class="card-body">
+                                    <h5 class="card-title">{{strtoupper(str_limit($p->prod_name, 10))}}
+                                    </h5>
+                                <p class="card-text">PHP {{$p->prod_amt}}.00</p>
+                                <div class="card-footer">
+
+                                    <small>{{$p->prod_qty}} left in stock</small>
+                                </div>
+                                </div>
+                            </div>                            
                         @endforeach
                     </div>
                 </div>
