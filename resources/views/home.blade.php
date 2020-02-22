@@ -22,12 +22,10 @@
                                 </div>
                                 <div class="card-body">
                                     <h5 class="card-title">{{strtoupper(str_limit($p->prod_name, 10))}}
-                                    </h5>
-                                <p class="card-text">PHP {{$p->prod_amt}}.00</p>
-                                <div class="card-footer">
-
-                                    <small>{{$p->prod_qty}} left in stock</small>
-                                </div>
+                                        </h5>
+                                        <p class="card-text">PHP {{$p->prod_amt}}.00</p>
+                                        <small>{{$p->prod_qty}} left in stock</small>
+                                        
                                 </div>
                             </div>                            
                         @endforeach

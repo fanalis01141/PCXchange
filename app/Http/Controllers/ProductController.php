@@ -41,7 +41,6 @@ class ProductController extends Controller
 
         
         if($request->hasFile("prod_image")){
-            
             // Create file name
             $fileNameToStore = time().Auth::user()->name."-".$request->file("prod_image")->getClientOriginalName();
             
