@@ -91,4 +91,27 @@ class MarketController extends Controller
     {
         //
     }
+    
+
+    public function byCategory(Request $request){
+        $requestC = $request->category;
+        $brands = \DB::table('products')
+        ->select('prod_brand')
+        ->groupBy('prod_brand')
+        ->get();
+        $category = \DB::table('products')
+            ->select('prod_category')
+            ->groupBy('prod_category')
+            ->get();
+        $products = Product::where("prod_qty",">",0)->where('prod_category', $request->category)->paginate(10);
+        return view('market.filter', compact('products','brands','category', 'requestC'));
+        // return redirect()->action('MarketController@showChosen', ['products' => $products, 'brands' => $brands, 'category' => $category]);
+
+    }
+
+    public function showChosen(){
+        return view('market.filter');
+    }
+
+
 }

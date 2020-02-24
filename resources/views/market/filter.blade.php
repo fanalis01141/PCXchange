@@ -37,6 +37,7 @@
         </div>
         <div class="col-md-7">
             <div class="card">
+                <div class="card-header">Showing all products for {{$requestC}}</div>
                 <div class="card-body">
                     <div class="scrollmenu row ">
                         @foreach ($products as $p)

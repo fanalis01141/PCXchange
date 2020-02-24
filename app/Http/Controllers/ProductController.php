@@ -109,8 +109,4 @@ class ProductController extends Controller
     {
         //
     }
-
-    public function checkFile(Request $request){
-        
-    }
 }
