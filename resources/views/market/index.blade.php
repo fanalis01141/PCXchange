@@ -46,7 +46,8 @@
                                     <img class="card-img-top" src="/storage/product_images/{{$p->prod_image}}" alt="Card image cap" style="width:130px; height:120px;">
                                 </div>
                                 <div class="card-body">
-                                    <a href="">
+                                    <input type="text" hidden value="{{$p->id}}" class="itemID">
+                                        <a href="{{route('market.show', $p->id)}}">
                                         <h5 class="card-title">{{strtoupper(str_limit($p->prod_name, 10))}}
                                     </a>
                                     </h5>
@@ -54,7 +55,7 @@
                                     <small>{{$p->prod_qty}} left in stock</small>
                                     <div class="card-footer">
                                         <button class="btn btn-sm btn-success btn-block">Buy Now</button>
-                                        <button class="btn btn-sm btn-primary btn-block">Add to Cart</button>
+                                        <button class="btn btn-sm btn-primary btn-block addToCart">Add to Cart</button>
                                     </div>
                                 </div>
                             </div>                            

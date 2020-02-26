@@ -49590,6 +49590,16 @@ $(document).ready(function () {
       });
     }
   });
+  $(".addToCart").click(function (e) {
+    e.preventDefault();
+    var id = $('.itemID').val();
+    $.ajax({});
+    Swal.fire({
+      title: 'HEYHE',
+      text: id,
+      icon: 'success'
+    });
+  });
 });
 
 /***/ }),

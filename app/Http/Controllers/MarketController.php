@@ -44,7 +44,7 @@ class MarketController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
@@ -53,9 +53,11 @@ class MarketController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, Request $request)
     {
-        //
+        $product = Product::findOrFail($id);
+        $same_category = Product::where('prod_category', $product->prod_category)->get();
+        return view('market.showProduct', compact('product', 'same_category'));
     }
 
     /**
@@ -104,13 +106,7 @@ class MarketController extends Controller
             ->groupBy('prod_category')
             ->get();
         $products = Product::where("prod_qty",">",0)->where('prod_category', $request->category)->paginate(10);
-        return view('market.filter', compact('products','brands','category', 'requestC'));
-        // return redirect()->action('MarketController@showChosen', ['products' => $products, 'brands' => $brands, 'category' => $category]);
-
-    }
-
-    public function showChosen(){
-        return view('market.filter');
+        // return redirect()->route('categorized', $requestC)->withCategory();;
     }
 
 

@@ -10,7 +10,7 @@
                     <div class="row">
                         
                         @foreach ($category as $c)
-    
+
                             <form action="{{route('market.byCategory', $c->prod_category)}}" method="post">
                                 @csrf
                                 <button type="submit" class="btn btn-secondary mb-1 ml-1" name="category" value="{{$c->prod_category}}" style="font-size:0.7rem;">
