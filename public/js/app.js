@@ -49593,11 +49593,21 @@ $(document).ready(function () {
   $(".addToCart").click(function (e) {
     e.preventDefault();
     var id = $('.itemID').val();
-    $.ajax({});
-    Swal.fire({
-      title: 'HEYHE',
-      text: id,
-      icon: 'success'
+    var qty = $("#quantity").val();
+    $.ajax({
+      method: 'POST',
+      url: '/toCart',
+      data: {
+        productID: id,
+        quantity: qty
+      }
+    }).done(function (data) {
+      console.log(data);
+      Swal.fire({
+        title: 'Hooray!',
+        text: data.message,
+        icon: 'success'
+      });
     });
   });
 });

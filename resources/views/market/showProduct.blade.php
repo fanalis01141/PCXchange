@@ -27,8 +27,8 @@
                 <div class="col-md-6">
                     <div class="row">
                         <label>Quantity:</label>
-                        <input type="number" name="" id="" min="1" value="0" max="999" class="form-control">
-                        <button type="submit" class="btn btn-primary">Add to Cart</button>
+                        <input type="number" name="" id="quantity" min="1" value="1" max="99999" class="form-control">
+                        <button type="submit" class="btn btn-primary addToCart">Add to Cart</button>
                         <button type="submit" class="btn btn-success ml-3">Buy Now</button>
                     </div>
                     

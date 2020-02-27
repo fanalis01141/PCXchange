@@ -20,7 +20,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+    {{-- <link href="{{ asset('css/custom.css') }}" rel="stylesheet"> --}}
 
 </head>
 <body>
@@ -55,7 +55,7 @@
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         <li class="nav-item">
-                            <a href="" class="nav-link">My cart</a>
+                            <a href="{{route('market.myCart')}}" class="nav-link">My cart</a>
                         </li>
                         @guest
                             <li class="nav-item">

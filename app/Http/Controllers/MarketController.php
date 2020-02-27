@@ -109,5 +109,63 @@ class MarketController extends Controller
         // return redirect()->route('categorized', $requestC)->withCategory();;
     }
 
+    public function addCart(Request $request){
+
+        //set Id for session cart
+        $ID = "";
+        if(\Auth::check()){
+            $ID = \Auth::user()->id;
+        }else{
+            $ID = session()->getId();
+        }
+
+        $product = Product::find($request->productID);
+        $rowid = ($request->productID);
+
+        // check if ID is already in cart
+        $check = \Cart::session($ID)->get($rowid);
+        if($check == null){
+            \Cart::session($ID)->add(array(
+                'id' => $rowid,
+                'name' => $product->prod_name,
+                'price' => $product->prod_amt,
+                'quantity' => $request->quantity,
+                'attributes' => array('image' => $product->prod_image),
+                'associatedModel' => 'Product'
+            ));
+
+            return response()->json([
+                'message' => $product->prod_name . ' added to cart.'
+            ]);
+        }else{
+            \Cart::session($ID)->update($rowid, array(
+                'quantity' => $request->quantity, 
+            ));
+
+            return response()->json([
+                'message' => "Added " . $request->quantity . ' pieces to ' . $product->prod_name
+            ]);
+        };
+
+    }
+
+    public function myCart(){
+
+        $ID = "";
+        if(\Auth::check()){
+            $ID = \Auth::user()->id;
+        }else{
+            $ID = session()->getId();
+        }
+        // \Cart::session($ID)->clear();
+
+
+        $cart = \Cart::session($ID)->getContent();
+        $subTotal = \Cart::session($ID)->getSubTotal();
+
+
+        return view ('market.cart', compact('cart', 'subTotal'));
+    }
+
 
 }
