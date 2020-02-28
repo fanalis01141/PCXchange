@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use App\Shipping;
 use Illuminate\Http\Request;
 
 class MarketController extends Controller
@@ -129,14 +130,19 @@ class MarketController extends Controller
                 'id' => $rowid,
                 'name' => $product->prod_name,
                 'price' => $product->prod_amt,
+                
                 'quantity' => $request->quantity,
-                'attributes' => array('image' => $product->prod_image),
+                'attributes' => array(
+                    'image' => $product->prod_image,
+                    'productid' => $product->id
+                    ),
                 'associatedModel' => 'Product'
             ));
 
             return response()->json([
                 'message' => $product->prod_name . ' added to cart.'
             ]);
+
         }else{
             \Cart::session($ID)->update($rowid, array(
                 'quantity' => $request->quantity, 
@@ -158,13 +164,22 @@ class MarketController extends Controller
             $ID = session()->getId();
         }
         // \Cart::session($ID)->clear();
-
-
         $cart = \Cart::session($ID)->getContent();
         $subTotal = \Cart::session($ID)->getSubTotal();
-
-
         return view ('market.cart', compact('cart', 'subTotal'));
+    }
+
+    public function validateCheckout(){
+        $check = \Auth::check();
+        if($check){
+            if(Shipping::where('user_id', \Auth::user()->id)->exists()){
+                return response()->json(['message' => 'HRA']); // Has record and authenticated - HRA
+            }else{
+                return response()->json(['message' => 'NRA']); // No record but authenticated - NRA
+            }
+        }else{
+            return response()->json(['message' => 'S']); // Session only - S
+        }
     }
 
 

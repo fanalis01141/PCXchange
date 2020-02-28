@@ -49610,6 +49610,23 @@ $(document).ready(function () {
       });
     });
   });
+  $("#checkout").click(function (e) {
+    $.ajax({
+      url: '/validateCheckout',
+      method: 'POST',
+      data: {
+        test: 'data'
+      }
+    }).done(function (data) {
+      console.log(data);
+
+      if (data.message.includes('NRA')) {
+        $('#shipping').modal();
+      } else if (data.message.includes('S')) {
+        $('#shipping').modal();
+      }
+    });
+  });
 });
 
 /***/ }),

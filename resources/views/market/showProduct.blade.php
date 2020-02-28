@@ -19,7 +19,7 @@
                                 <h3>₱ {{$product->prod_amt}}.00<h3>
                             </div>
                             <div class="text-right">
-                                <h5 class="ml-3 mt-1">{{$product->prod_qty}} pieces left</h5>
+                                <h5 class="ml-3 mt-1" id="remaining">{{$product->prod_qty}} pieces left</h5>
                             </div>
                         </div>
                     </div>
@@ -27,7 +27,7 @@
                 <div class="col-md-6">
                     <div class="row">
                         <label>Quantity:</label>
-                        <input type="number" name="" id="quantity" min="1" value="1" max="99999" class="form-control">
+                        <input type="number" name="" id="quantity" min="1" value="1" max="99999" class="form-control" onchange="checkQty()" onkeyup="checkQty()">
                         <button type="submit" class="btn btn-primary addToCart">Add to Cart</button>
                         <button type="submit" class="btn btn-success ml-3">Buy Now</button>
                     </div>
@@ -65,3 +65,21 @@
         </div>
     </div>
 @endsection
+
+<script>
+    function checkQty(){
+        var zzz = $("#remaining").text();
+        var remaining = zzz.match(/[0-9]+/g);
+        
+        var requested = $("#quantity").val();
+
+        if(parseInt(requested) > parseInt(remaining)){
+            $("#quantity").val(remaining)
+            Swal.fire({
+                title : 'Oops!',
+                text : 'Seems like you ordered more than the stocks left.',
+                icon : 'warning'
+            })
+        }
+    }
+</script>
