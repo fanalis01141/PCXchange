@@ -112,6 +112,4 @@ function readURL(input) {
     }
 }
 
-
-
 </script>

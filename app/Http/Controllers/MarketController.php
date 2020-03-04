@@ -164,23 +164,10 @@ class MarketController extends Controller
             $ID = session()->getId();
         }
         // \Cart::session($ID)->clear();
+
+
         $cart = \Cart::session($ID)->getContent();
         $subTotal = \Cart::session($ID)->getSubTotal();
         return view ('market.cart', compact('cart', 'subTotal'));
     }
-
-    public function validateCheckout(){
-        $check = \Auth::check();
-        if($check){
-            if(Shipping::where('user_id', \Auth::user()->id)->exists()){
-                return response()->json(['message' => 'HRA']); // Has record and authenticated - HRA
-            }else{
-                return response()->json(['message' => 'NRA']); // No record but authenticated - NRA
-            }
-        }else{
-            return response()->json(['message' => 'S']); // Session only - S
-        }
-    }
-
-
 }

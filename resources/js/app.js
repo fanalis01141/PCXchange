@@ -119,7 +119,7 @@ $(document).ready(function(){
 
     $("#checkout").click(function(e){
         $.ajax({
-            url: '/validateCheckout',
+            url: '/checkout',
             method: 'POST',
             data: {test : 'data'},
         }).done(function(data){
@@ -128,6 +128,8 @@ $(document).ready(function(){
                 $('#shipping').modal();
             }else if(data.message.includes('S')){
                 $('#shipping').modal();
+            }else{
+                window.location.replace('/ship');            
             }
         })
     });

@@ -42,8 +42,7 @@
                         {{$subTotal}}
                     </strong>
                     <br>
-
-                <a type="submit" href="{{route('ship.index')}}" class="btn btn-primary" id="checkout">Checkout order</a>
+                    <a type="submit" href="{{route('ship.index')}}" class="btn btn-primary" id="checkout">Place order</a>
                 </div>
             </div>
         </div>

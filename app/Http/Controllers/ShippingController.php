@@ -14,7 +14,24 @@ class ShippingController extends Controller
      */
     public function index()
     {
-        //
+        $check = \Auth::check();
+        if($check){
+            if(Shipping::where('user_id', \Auth::user()->id)->exists()){
+                return redirect()->route('placeOrder');
+            }else{
+                return view('shipping.details');
+            }
+            return redirect()->back();
+        }else{
+            $sessioncheck = session()->get('checkoutStatus');{
+                if ($sessioncheck){
+                    return redirect()->route('placeOrder');
+                }else{
+                    session()->put('checkoutStatus', 'SNR'); //Session with no record
+                    return view('shipping.details');
+                }
+            }
+        }
     }
 
     /**
@@ -37,19 +54,18 @@ class ShippingController extends Controller
     {
         $check = \Auth::check();
         if($check){
-            Shipping::create([
-                'user_id' => Auth::user()->id,
+            Shipping::create([ // Store to db if user is authenticated
+                'user_id' => \Auth::user()->id,
                 'phone_number' => $request->contact,
                 'address' => $request->address,
             ]);
         }else{
-            session([
+            session([ // Store to session if user is unauthenticated
                 'phone_number' =>  $request->contact,
                 'address' => $request->address,
             ]);
         }
-
-        //To be continuted
+        return redirect()->route('placeOrder');
     }
 
     /**
@@ -95,5 +111,31 @@ class ShippingController extends Controller
     public function destroy(Shipping $shipping)
     {
         //
+    }
+
+    public function checkout(){
+        $ID = "";
+        if(\Auth::check()){
+            $ID = \Auth::user()->id;
+        }else{
+            $ID = session()->getId();
+        }
+        $cart = \Cart::session($ID)->getContent();
+        $subTotal = \Cart::session($ID)->getSubTotal();
+
+        return view('market.checkout', compact('cart', 'subTotal'));
+    }
+
+    public function placeOrder(){
+        $ID = "";
+        if(\Auth::check()){
+            $ID = \Auth::user()->id;
+        }else{
+            $ID = session()->getId();
+        }
+        $cart = \Cart::session($ID)->getContent();
+        $subTotal = \Cart::session($ID)->getSubTotal();
+
+        return view('shipping.place', compact('cart', 'subTotal'));
     }
 }
